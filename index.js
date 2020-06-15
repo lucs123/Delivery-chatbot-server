@@ -11,7 +11,19 @@ app.get('/',(req,res)=>{
 
 app.post('/',(req,res)=>{
 	console.log(req.body);
-	res.send('Received')
+	res.send(response)
 })
+
+response = {
+  "fulfillmentMessages": [
+    {
+      "text": {
+        "text": [
+          "Text response from webhook"
+        ]
+      }
+    }
+  ]
+}
 
 app.listen(PORT)
