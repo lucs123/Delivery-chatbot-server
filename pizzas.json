@@ -1,0 +1,572 @@
+{
+   "a moda do cliente": {
+      "Pizza": "A moda do Cliente",
+      "Ingredientes": "(mussarela e mais três ingredientes a sua escolha)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "a moda do pizzaiolo": {
+      "Pizza": "A moda do Pizzaiolo",
+      "Ingredientes": "(mussarela,presunto, milho, bacon, cebola, catupiry e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "alface": {
+      "Pizza": "Alface",
+      "Ingredientes": "(mussarela, bacon, alface, americano e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "aliche": {
+      "Pizza": "Aliche",
+      "Ingredientes": "(mussarela, aliche, tomate, parmesão e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "alpina": {
+      "Pizza": "Alpina",
+      "Ingredientes": "(mussarela, palmito, bacon, provolone e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "alho": {
+      "Pizza": "Alho",
+      "Ingredientes": "(mussarela, tomate, alho frito e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "alho poro": {
+      "Pizza": "Alho Poró",
+      "Ingredientes": "(mussarela, alho poró, cream cheese, bacon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "americana": {
+      "Pizza": "Americana",
+      "Ingredientes": "(mussarela, presunto, bacon, ovos e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "atum": {
+      "Pizza": "Atum",
+      "Ingredientes": "(mussarela, atum ralado, cebola e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "atum com gorgonzola": {
+      "Pizza": "Atum com Gorgonzola",
+      "Ingredientes": "(mussarela, atum ralado, gorgonzola e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "atum a portuguesa": {
+      "Pizza": "Atum à Portuguesa",
+      "Ingredientes": "(mussarela, atum ralado, cebola, ervilha, ovo e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "bacalhau": {
+      "Pizza": "Bacalhau",
+      "Ingredientes": "(mussarela, bacalhau temperado, cebola e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "bacon": {
+      "Pizza": "Bacon",
+      "Ingredientes": "(mussarela, tomate, bacon e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "baianinha": {
+      "Pizza": "Baianinha",
+      "Ingredientes": "(mussarela, calabresa, ovos, pimenta, cebola e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "beringela": {
+      "Pizza": "Beringela",
+      "Ingredientes": "(mussarela, beringela, pimentão e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "brocolis": {
+      "Pizza": "Brócolis",
+      "Ingredientes": "(mussarela, brócolis, bacon e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "brocolis catupiry": {
+      "Pizza": "Brócolis Catupiry",
+      "Ingredientes": "(mussarela, brócolis, catupiry, bacon e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "brocolis especial": {
+      "Pizza": "Brócolis Especial",
+      "Ingredientes": "(mussarela, brócolis, creme de leite, champignon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "calabresa": {
+      "Pizza": "Calabresa",
+      "Ingredientes": "(mussarela, calabresa, cebola e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "calabresa catupiry": {
+      "Pizza": "Calabresa Catupiry",
+      "Ingredientes": "(mussarela, calabresa, cebola, catupiry e azeitona) ",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "camarao": {
+      "Pizza": "Camarão",
+      "Ingredientes": "(mussarela, camarão, ervilha, palmito, catupiry e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "carne seca com catupiry": {
+      "Pizza": "Carne Seca com Catupiry",
+      "Ingredientes": "(mussarela, carne seca, catupiry e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "carne seca acebolada": {
+      "Pizza": "Carne Seca Acebolada",
+      "Ingredientes": "(mussarela, carne seca, cebola e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "carpaccio": {
+      "Pizza": "Carpaccio",
+      "Ingredientes": "(mussarela, carpaccio, parmesão e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "cautpiry": {
+      "Pizza": "Cautpiry",
+      "Ingredientes": "(mussarela, catupiry e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "catupiry com bacon": {
+      "Pizza": "Catupiry com Bacon",
+      "Ingredientes": "(mussarela, catupiry, bacon e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "cheedar": {
+      "Pizza": "Cheedar",
+      "Ingredientes": "(mussarela, cheedar, palmito e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "cinco queijos": {
+      "Pizza": "Cinco Queijos",
+      "Ingredientes": "(mussarela, catupiry, provolone, cheedar, parmesão e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "delicia": {
+      "Pizza": "Delícia",
+      "Ingredientes": "(mussarela, frango desfiado, champignon, catupiry, parmesão, palmito e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "escarola": {
+      "Pizza": "Escarola",
+      "Ingredientes": "(mussarela, escarola, bacon e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "escondidinho": {
+      "Pizza": "Escondidinho",
+      "Ingredientes": "(mussarela, carne seca, purê de batata, parmesão e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "file mignon catupiry": {
+      "Pizza": "Filé MIgnon Catupiry",
+      "Ingredientes": "(mussarela, filé no molho de catupiry e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "florenca": {
+      "Pizza": "Florença",
+      "Ingredientes": "(mussarela, frango desfiado, brócolis, palmito, champignon, creme de leite e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "frango bacon": {
+      "Pizza": "Frango Bacon",
+      "Ingredientes": "(mussarela, frango desfiado, catupiry, bacon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "frango a florenca": {
+      "Pizza": "Frango à Florença",
+      "Ingredientes": "(mussarela, frango ao creme de leite, bacon, catupiry e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "frango catupiry": {
+      "Pizza": "Frango Catupiry",
+      "Ingredientes": "(mussarela, frango desfiado, catupiry e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "frango catupiry milho": {
+      "Pizza": "Frango Catupiry Milho",
+      "Ingredientes": "(mussarela, frango desfiado, catupiry, milho e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "frango cheedar": {
+      "Pizza": "Frango Cheedar",
+      "Ingredientes": "(mussarela, frango desfiado, cheedar e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "frango crocante": {
+      "Pizza": "Frango Crocante",
+      "Ingredientes": "(mussarela, frango desfiado, milho, batata palha e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "frango especial com bacon": {
+      "Pizza": "Frango Especial com Bacon",
+      "Ingredientes": "(mussarela, frango desfiado, requeijão, bacon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "hot dog": {
+      "Pizza": "Hot Dog",
+      "Ingredientes": "(purê de batata, salsicha, molho e batata palha)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "gorgonzola": {
+      "Pizza": "Gorgonzola",
+      "Ingredientes": "(mussarela, gorgonzola, tomate seco, manjericão e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "italiana": {
+      "Pizza": "Italiana",
+      "Ingredientes": "(mussarela, salaminho, tomate e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "kani": {
+      "Pizza": "Kani",
+      "Ingredientes": "(mussarela, kani, alcaparras e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "lombinho": {
+      "Pizza": "Lombinho",
+      "Ingredientes": "(mussarela, lombo canadense, catupiry e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "lombinho especial ": {
+      "Pizza": "Lombinho Especial ",
+      "Ingredientes": "(mussarela, lombo canadense, catupiry, bacon, palmito e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "lombinho com cebola": {
+      "Pizza": "Lombinho com Cebola",
+      "Ingredientes": "(mussarela, lombo canadense, cebola, bacon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "marguerita": {
+      "Pizza": "Marguerita",
+      "Ingredientes": "(mussarela, tomate, parmesão, manjericão fresco e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "mexicana": {
+      "Pizza": "Mexicana",
+      "Ingredientes": "(mussarela, alho frito, bacon, tomate e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "mineira": {
+      "Pizza": "Mineira",
+      "Ingredientes": "(mussarela, catupiry, milho, bacon e azeitona)",
+      "Preço": "R$31,90",
+      "Valor": 31.9
+   },
+   "milho catupiry": {
+      "Pizza": "MIlho Catupiry",
+      "Ingredientes": "(mussarela, milho, catupiry e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "mortadela": {
+      "Pizza": "Mortadela",
+      "Ingredientes": "(mortadela, provolone, tomate seco, molho de mostarda e azeitona) ",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "mussarela": {
+      "Pizza": "Mussarela",
+      "Ingredientes": "(mussarela, rodelas de tomate e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "napolitana": {
+      "Pizza": "Napolitana",
+      "Ingredientes": "(mussarela, presunto, tomate, catupiry e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "paulista": {
+      "Pizza": "Paulista",
+      "Ingredientes": "(mussarela, presunto, tomate e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "palmito": {
+      "Pizza": "Palmito",
+      "Ingredientes": "(mussarela, palmito, catupiry e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "palmito com bacon": {
+      "Pizza": "Palmito com Bacon",
+      "Ingredientes": "(mussarela, palmito, catupiry, bacon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "peito de peru": {
+      "Pizza": "Peito de Peru",
+      "Ingredientes": "(mussarela, peito de peru, catupiry e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "peito de peru especial": {
+      "Pizza": "Peito de Peru Especial",
+      "Ingredientes": "(mussarela, peito de peru, catupiry, ervilha, palmito, tomate seco e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "peperoni": {
+      "Pizza": "Peperoni",
+      "Ingredientes": "(mussarela, peperoni e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "portuguesa": {
+      "Pizza": "Portuguesa",
+      "Ingredientes": "(mussarela, presunto, ovos, cebola, ervilha, palmito e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "potato": {
+      "Pizza": "Potato",
+      "Ingredientes": "(mussarela, purê de batata, bacon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "primavera": {
+      "Pizza": "Primavera",
+      "Ingredientes": "(mussarela, presunto, creme de leite, bacon e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "provolone": {
+      "Pizza": "Provolone",
+      "Ingredientes": "(mussarela, provolone e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "quatro queijos": {
+      "Pizza": "Quatro Queijos",
+      "Ingredientes": "(mussarela, catupiry, parmesão, gorgonzola e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "quatro queijos com tomate seco": {
+      "Pizza": "Quatro Queijos com Tomate Seco",
+      "Ingredientes": "(mussarela, catupiry, parmesão, gorgonzola, tomate seco e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "requinte": {
+      "Pizza": "Requinte",
+      "Ingredientes": "(mussarela, frango desfiado, catupiry, bacon, milho, cebola e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "requeijao": {
+      "Pizza": "Requeijão",
+      "Ingredientes": "(mussarela, requeijão, bacon e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "rucula": {
+      "Pizza": "Rúcula",
+      "Ingredientes": "(mussarela, tomate seco, rúcula e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "salmao": {
+      "Pizza": "Salmão",
+      "Ingredientes": "(mussarela, salmão, alcaparra e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "strogonoff de carne ": {
+      "Pizza": "Strogonoff de Carne ",
+      "Ingredientes": "(mussarela, strogonoff de carne, batata palha e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "strogonoff de frango": {
+      "Pizza": "Strogonoff de Frango",
+      "Ingredientes": "(mussarela, strogonoff de frango, batata palha e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "seis queijos": {
+      "Pizza": "Seis Queijos",
+      "Ingredientes": "(mussarela, catupiry, parmesão, provolone, gorgonzola, cheedar e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "siciliana": {
+      "Pizza": "Siciliana",
+      "Ingredientes": "(mussarela, champignon, bacon, parmesão e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "siri": {
+      "Pizza": "Siri",
+      "Ingredientes": "(mussarela, siri, parmesão e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "toscana": {
+      "Pizza": "Toscana",
+      "Ingredientes": "(mussarela, calabresa, manjericão fresco e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "toscana especial": {
+      "Pizza": "Toscana Especial",
+      "Ingredientes": "(mussarela, calabresa, catupiry, manjericão fresco e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "tomate seco": {
+      "Pizza": "Tomate Seco",
+      "Ingredientes": "(mussarela, tomate seco e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "tomate seco com alho": {
+      "Pizza": "Tomate Seco com Alho",
+      "Ingredientes": "(mussarela, tomate seco, alho e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "tomate seco especial": {
+      "Pizza": "Tomate Seco Especial",
+      "Ingredientes": "(mussarela, tomate seco, palmito, parmesão e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "tres queijos": {
+      "Pizza": "Três Queijos",
+      "Ingredientes": "(mussarela, catupiry, provolone e azeitona)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "vegetariana": {
+      "Pizza": "Vegetariana",
+      "Ingredientes": "(mussarela, brócolis, palmito, champignon e azeitona)",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "vegetariana especial": {
+      "Pizza": "Vegetariana Especial",
+      "Ingredientes": "(mussarela, brócolis, palmito, champignon, tomate seco e azeitona)",
+      "Preço": "R$ 34,90",
+      "Valor": 34.9
+   },
+   "veneza": {
+      "Pizza": "Veneza",
+      "Ingredientes": "(mussarela, presunto, champignon, creme de leite e azeitona) ",
+      "Preço": "R$ 31,90",
+      "Valor": 31.9
+   },
+   "banana": {
+      "Pizza": "Banana",
+      "Ingredientes": "(banana, açúcar e canela)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "brigadeiro": {
+      "Pizza": "Brigadeiro",
+      "Ingredientes": "(chocolate e granulado)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "confeti": {
+      "Pizza": "Confeti",
+      "Ingredientes": "(chocolate e confeti)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "choquito": {
+      "Pizza": "Choquito",
+      "Ingredientes": "(chocolate, doce de leite e castanha)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "doce de leite": {
+      "Pizza": "Doce de Leite",
+      "Ingredientes": "(doce de leite e coco ralado)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "nutella": {
+      "Pizza": "Nutella",
+      "Ingredientes": "(nutella)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "prestigio": {
+      "Pizza": "Prestígio",
+      "Ingredientes": "(chocolate e coco ralado)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "romeu & julieta": {
+      "Pizza": "Romeu & Julieta",
+      "Ingredientes": "(mussarela e goiabada)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "sorvete": {
+      "Pizza": "Sorvete",
+      "Ingredientes": "(sorvete, castanha, chocolate e cobertura)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "morango": {
+      "Pizza": "Morango",
+      "Ingredientes": "(chocolate, leite condensado e morango",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   },
+   "pe de moleque": {
+      "Pizza": "Pé de Moleque",
+      "Ingredientes": "(doce de leite e castanha)",
+      "Preço": "R$ 28,90",
+      "Valor": 28.9
+   }
+}
