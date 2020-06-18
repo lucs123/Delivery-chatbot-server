@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 5000
 
+const menu = require('./pizzas.json') 
+
 app.use(express.json())
 
 app.get('/',(req,res)=>{
@@ -9,38 +11,47 @@ app.get('/',(req,res)=>{
 	console.log('live');
 })
 
-app.post('/',(req,res)=>{
-	console.log(req.body);
-	const sabores_ = req.body.queryResult.parameters.sabor
-	const quantidade = req.body.queryResult.parameters.number
-	console.log(quantidade);
-	// console.log(order_response(sabores_,quantidade));
-	if(req.body.queryResult.intent.displayName === 'Pedido'){
-		res.send(order_response(sabores_,quantidade))
+class Order {
+	constructor(sabores,quantidade){
+		this.sabores = sabores;
+		this.quantidade = quantidade;
+		this.pizzas = [];
+		this.pedido = {
+					id:'',
+					pedido: '',
+					valor: null,
+					formaEntrega:'',
+					status: '' 
+					};
 	}
-	// console.log(sabores_);
-	// console.log(quantidade);
-	// if(sabores_.length > 2){
-	// 	res.send(response('Desculpe só é possivel pedir até dois sabores'))
-	// }
-	const sabores = sabores_.map(sabor=>(
-		slugify(sabor)))
-	console.log(sabores);
-	// console.log(req.body.queryResult.fulfillmentMessages.text);
-	// console.log(req.body.queryResult.outputContexts[0]);
-	// console.log(req.body.queryResult.outputContexts[1]);
-	// console.log(req.body.queryResult.outputContexts[2]);
-}
-)
 
-pedido = {
-	id:'',
-	pedido: '',
-	valor: null 
-}
+	orderResponse = () => {
+		let res = "O seu pedido foi: "
+		for (var i = this.sabores.length - 1; i >= 0; i--) {
+			let sabor = menu[this.sabores[i]]	
+			this.pizzas.push(sabor)
+			let str = this.quantidade[i].toString()+' pizza '+sabor.Pizza+', '
+			res = res.concat(str)
+		}
+		res = res + 'correto?(s/n)'
+		this.pedido.pedido = res
+		return (this.textResponse(res))
+	}
 
+	billingResponse = () => {
+		let value = 0
+		for (var i = this.pizzas.length - 1; i >= 0; i--) {
+			value = value + this.pizzas[i].Valor
+		}
+		let formatter = new Intl.NumberFormat('pt-BR', 
+				{
+				  style: 'currency',
+				  currency: 'BRL',
+				});
+		return (this.textResponse('O valor do pedido foi:'+formatter.format(value)+', é para entrega ou retirada?'))
+	}
 
-function response(message){
+	textResponse = (message)=>{
 	return(
 	{
 	  "fulfillmentMessages": [
@@ -53,17 +64,24 @@ function response(message){
 	    }
 	  ]
 	})}
-
-function order_response(sabores,quantidade) {
-	let res = "O seu pedido foi: "
-	for (var i = sabores.length - 1; i >= 0; i--) {
-		str = quantidade[i].toString()+' pizza '+sabores[i]+', '
-		res = res.concat(str)
-	}
-	res = res + 'correto?(s/n)'
-	return response(res)
 }
-		
+
+app.post('/',(req,res)=>{
+	console.log(req.body);
+	// console.log(order_response(sabores_,quantidade));
+	if(req.body.queryResult.intent.displayName === 'Pedido'){
+		const sabores_ = req.body.queryResult.parameters.sabor
+		const quantidade = req.body.queryResult.parameters.number
+		const sabores = sabores_.map(sabor=>(
+		slugify(sabor)))
+		order = new Order(sabores,quantidade) 
+		res.send(order.orderResponse())
+	}
+	if(req.body.queryResult.intent.displayName === 'formaEntrega'){
+		res.send(order.billingResponse())
+	}
+}
+)
 
 function slugify (str) {
     var map = {
