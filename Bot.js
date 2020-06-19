@@ -1,4 +1,5 @@
 const menu = require('./pizzas.json') 
+const pool = require('./db.js')
 
 class Order {
 	constructor(sabores,quantidade){
@@ -6,7 +7,6 @@ class Order {
 		this.quantidade = quantidade;
 		this.pizzas = [];
 		this.pedido = {
-					id:'',
 					pedido: '',
 					valor: null,
 					formaEntrega:'',
@@ -62,6 +62,21 @@ class Order {
 	    }
 	  ]
 	})}
+
+	finishOrder= ()=>{
+		let params = []
+		for(let prop in this.pedido){
+			params.push(this.pedido[prop])
+		}
+		console.log(params);
+		pool.query('INSERT INTO pedidos(pedido,valor,formaEntrega,endereco,status) VALUES($1,$2,$3,$4,$5)',params, 
+			(err, res) => {
+			if (err) {
+		    	throw err
+		  		}
+		}
+		)
+	}
 }
 
 module.exports = Order

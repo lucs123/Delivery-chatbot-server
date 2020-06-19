@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 5000
 const Order = require('./Bot.js')
+const pool = require('./db.js')
 const slugify = require('./slugify.js')
 
 
@@ -30,7 +31,7 @@ app.post('/',(req,res)=>{
 	}
 
 	if(req.body.queryResult.intent.displayName === 'entrega'){
-		order.formaEntrega('entrega',req.body.queryResult.parameters.endereco)
+		order.formaEntrega('entrega',req.body.queryResult.queryText)
 		res.send(order.textResponse(
 			'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
 			' para entrega em '+order.pedido.endereco+'?'))
@@ -46,6 +47,7 @@ app.post('/',(req,res)=>{
 		order.pedido.status = 'na fila'
 		console.log(order.pedido);
 		res.send(order.textResponse('Obrigado, seu pedido será entregue'))
+		order.finishOrder()
 	}
 	if(req.body.queryResult.intent.displayName === 'confirma-retirada'){
 		order.pedido.status = 'na fila'
@@ -55,5 +57,16 @@ app.post('/',(req,res)=>{
 	}		
 })
 
+app.get('/pedidos',(req,res)=>{
+	let results = []
+	pool.query(('SELECT * FROM pedidos'), (err, results) => {
+	  	if (err) {
+	  	  throw err
+	  	}
+	  	console.log(results.rows);
+	  	res.send(results.rows)
+		}
+	)
+})	
 
 app.listen(PORT)
