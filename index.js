@@ -4,9 +4,10 @@ const PORT = process.env.PORT || 5000
 const Order = require('./Bot.js')
 const pool = require('./db.js')
 const slugify = require('./slugify.js')
-
+const cors = require('cors')
 
 app.use(express.json())
+app.use(cors())
 
 app.get('/',(req,res)=>{
 	res.send('Hello')

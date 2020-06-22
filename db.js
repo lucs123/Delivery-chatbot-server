@@ -7,6 +7,7 @@ const pool = new Pool({
   }
 });
 
+// console.log(process.env.DATABASE_URL)
 // pool.query('SELECT * FROM pedidos;'
 // 	 , (err, res) => {
 //   if (err) throw err;
