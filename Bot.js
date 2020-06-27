@@ -7,6 +7,7 @@ class Order {
 		this.quantidade = quantidade;
 		this.pizzas = [];
 		this.pedido = {
+					id: 50,
 					pedido: '',
 					valor: null,
 					formaEntrega:'',
@@ -76,7 +77,37 @@ class Order {
 		  		}
 		}
 		)
+		g_socket.emit('FromAPI',this.pedido)
 	}
+
 }
+
+let g_socket;
+
+io.on("connection", (socket) => {
+  console.log("New client connected");
+  getSocket(socket)
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+  socket.on('changeStatus', (data)=>{
+  	// console.log(data)
+  	pool.query('UPDATE pedidos\
+  		SET status=$1\
+		WHERE id = $2',[data.status,data.id],
+		(err, res) => {
+			if (err) {
+	    		throw err
+	  		}
+		})
+  	}
+  	)
+});
+
+
+const getSocket = (socket) => {
+	g_socket = socket
+}
+
 
 module.exports = Order

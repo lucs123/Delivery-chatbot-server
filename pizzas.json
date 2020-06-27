@@ -209,13 +209,13 @@
       "Preço": "R$ 34,90",
       "Valor": 34.9
    },
-   "frango catupiry": {
-      "Pizza": "Frango Catupiry",
+   "frango com catupiry": {
+      "Pizza": "Frango com Catupiry",
       "Ingredientes": "(mussarela, frango desfiado, catupiry e azeitona)",
       "Preço": "R$ 31,90",
       "Valor": 31.9
    },
-   "frango catupiry milho": {
+   "frango com catupiry e milho": {
       "Pizza": "Frango Catupiry Milho",
       "Ingredientes": "(mussarela, frango desfiado, catupiry, milho e azeitona)",
       "Preço": "R$ 34,90",
