@@ -7,7 +7,7 @@ class Order {
 		this.quantidade = quantidade;
 		this.pizzas = [];
 		this.pedido = {
-					id: 50,
+					id: null,
 					pedido: '',
 					valor: null,
 					formaEntrega:'',
@@ -64,13 +64,17 @@ class Order {
 	  ]
 	})}
 
-	finishOrder= ()=>{
+	finishOrder= async ()=>{
+		//generate id
+		const {rows} = await pool.query('SELECT MAX(id) FROM pedidos;')
+		this.pedido.id = rows[0].max +1
+
 		let params = []
 		for(let prop in this.pedido){
 			params.push(this.pedido[prop])
 		}
 		console.log(params);
-		pool.query('INSERT INTO pedidos(pedido,valor,formaEntrega,endereco,status) VALUES($1,$2,$3,$4,$5)',params, 
+		pool.query('INSERT INTO pedidos(id,pedido,valor,formaEntrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',params, 
 			(err, res) => {
 			if (err) {
 		    	throw err

@@ -4,7 +4,7 @@ const Order = require('../Bot.js')
 const slugify = require('../slugify.js')
 
 router.post('/',(req,res)=>{
-	console.log(req.body);
+	// console.log(req.body);
 	if(req.body.queryResult.intent.displayName === 'Pedido'){
 		const sabores_ = req.body.queryResult.parameters.sabor
 		const quantidade = req.body.queryResult.parameters.number
@@ -17,7 +17,6 @@ router.post('/',(req,res)=>{
 	}
 	if(req.body.queryResult.intent.displayName === 'formaEntrega'){
 		res.send(order.billingResponse())
-		console.log(order.pedido);
 	}
 
 	if(req.body.queryResult.intent.displayName === 'entrega'){
@@ -31,18 +30,15 @@ router.post('/',(req,res)=>{
 		res.send(order.textResponse(
 			'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
 			' para retirada?'))
-		console.log(order.pedido);
 	}
 	if(req.body.queryResult.intent.displayName === 'confirma-entrega'){
 		order.pedido.status = 'na fila'
-		console.log(order.pedido);
 		res.send(order.textResponse('Obrigado, seu pedido será entregue'))
 		order.finishOrder()
 	}
 	if(req.body.queryResult.intent.displayName === 'confirma-retirada'){
 		order.pedido.status = 'na fila'
 		order.pedido.status = 'para retirada'
-		console.log(order.pedido);
 		res.send(order.textResponse('Obrigado, seu pedido será entregue'))
 		order.finishOrder()
 	}		

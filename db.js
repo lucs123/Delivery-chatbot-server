@@ -7,6 +7,15 @@ const pool = new Pool({
   }
 });
 
+// let id;
+
+// async function getId() {
+// 	const {rows} = await pool.query('SELECT MAX(id) FROM pedidos;')
+// 	console.log(rows[0].max)
+// 	id = rows[0].max +1
+// 	console.log(id)
+// }
+	
 // class Queries{
 // 	constructor(){
 // 		this.pedidos = []
