@@ -52,7 +52,7 @@ class Order {
                 case('Para entrega'):
                 return(this.textResponse('Seu pedido já será entregue'));              
 
-                case('para retirada'):
+                case('Aguardando retirada'):
                 return(this.textResponse('Seu pedido já está aguardando a retirada'));              
             }
         }
@@ -166,6 +166,16 @@ io.on("connection", (socket) => {
         })
     }
     )
+  socket.on('remove', (data)=>{
+    console.log(data)
+    pool.query('DELETE FROM pedidos\
+        WHERE id = $1;',[data.id],
+        (err, res) => {
+            if (err) {
+                throw err
+            }
+        })
+    })
 });
 
 
