@@ -140,7 +140,7 @@ class Order {
                 }
         }
         )
-        // g_socket.emit('FromAPI',this.pedido)
+        g_socket.emit('FromAPI',this.pedido)
         return (this.textResponse(message+' para consultar o status do seu pedido use o numero:'+this.pedido.id))
     }
 
