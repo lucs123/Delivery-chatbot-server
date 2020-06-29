@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Order = require('../Bot.js')
+const order = require('../Bot.js')
 const slugify = require('../slugify.js')
 
-router.post('/',(req,res)=>{
-	// console.log(req.body);
+router.post('/',async (req,res)=>{
+	// console.log(req.body.queryResult.parameters['sabor-pizza']);
 	switch(req.body.queryResult.intent.displayName){
 		case('Pedido'):
 			const sabores_ = req.body.queryResult.parameters.sabor
@@ -13,7 +13,8 @@ router.post('/',(req,res)=>{
 			const sabores = sabores_.map(sabor=>(
 			slugify(sabor)))
 			
-			order = new Order(sabores,quantidade) 
+			order.sabores = sabores
+			order.quantidade = quantidade
 			res.send(order.orderResponse())
 			break;
 
@@ -47,9 +48,22 @@ router.post('/',(req,res)=>{
 			res.send(order.finishOrder('Obrigado, seu pedido será preparado para retirada'))
 			break;
 
-		// case('Status'):
-		// 	const id = req.body.queryResult.parameters.number;
-		// 	order.getStatus(id);
+		case('Status'):
+			const id = req.body.queryResult.parameters.number;
+			const status = await order.getStatus(id)
+			res.send(status);
+			break;
+
+		case('pizzas'):
+			order.getAllOptions()
+			const pizzas = await order.getAllOptions()
+			// console.log(pizzas.fulfillmentMessages[0].text)
+			res.send(pizzas)
+			break;
+
+		case('info_sabor'):
+			const sabor = slugify(req.body.queryResult.parameters['sabor-pizza'])
+			res.send(order.getInfo(sabor))
 	}		
 })
 
