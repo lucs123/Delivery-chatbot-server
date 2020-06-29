@@ -5,42 +5,51 @@ const slugify = require('../slugify.js')
 
 router.post('/',(req,res)=>{
 	// console.log(req.body);
-	if(req.body.queryResult.intent.displayName === 'Pedido'){
-		const sabores_ = req.body.queryResult.parameters.sabor
-		const quantidade = req.body.queryResult.parameters.number
+	switch(req.body.queryResult.intent.displayName){
+		case('Pedido'):
+			const sabores_ = req.body.queryResult.parameters.sabor
+			const quantidade = req.body.queryResult.parameters.number
 
-		const sabores = sabores_.map(sabor=>(
-		slugify(sabor)))
+			const sabores = sabores_.map(sabor=>(
+			slugify(sabor)))
+			
+			order = new Order(sabores,quantidade) 
+			res.send(order.orderResponse())
+			break;
+
+		case('formaEntrega'):
+			res.send(order.billingResponse());
+			break;
+
+		case('entrega'):
+			console.log(req.body.queryResult.queryText)
+			order.formaEntrega('entrega',req.body.queryResult.queryText)
+			res.send(order.textResponse(
+				'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
+				' para entrega em '+order.pedido.endereco+'?'))
+			break;
+
+		case('retirada'):
+			order.formaEntrega('retirada','')
+			res.send(order.textResponse(
+				'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
+				' para retirada?'))
+			break;
 		
-		order = new Order(sabores,quantidade) 
-		res.send(order.orderResponse())
-	}
-	if(req.body.queryResult.intent.displayName === 'formaEntrega'){
-		res.send(order.billingResponse())
-	}
+		case('confirma-entrega'):
+			order.pedido.status = 'na fila'
+			res.send(order.finishOrder('Obrigado, seu pedido será entregue'))
+			break;
 
-	if(req.body.queryResult.intent.displayName === 'entrega'){
-		order.formaEntrega('entrega',req.body.queryResult.queryText)
-		res.send(order.textResponse(
-			'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
-			' para entrega em '+order.pedido.endereco+'?'))
-	}
-	if(req.body.queryResult.intent.displayName === 'retirada'){
-		order.formaEntrega('retirada','')
-		res.send(order.textResponse(
-			'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
-			' para retirada?'))
-	}
-	if(req.body.queryResult.intent.displayName === 'confirma-entrega'){
-		order.pedido.status = 'na fila'
-		res.send(order.textResponse('Obrigado, seu pedido será entregue'))
-		order.finishOrder()
-	}
-	if(req.body.queryResult.intent.displayName === 'confirma-retirada'){
-		order.pedido.status = 'na fila'
-		order.pedido.status = 'para retirada'
-		res.send(order.textResponse('Obrigado, seu pedido será entregue'))
-		order.finishOrder()
+		case('confirma-retirada'):
+			order.pedido.status = 'na fila'
+			order.pedido.status = 'para retirada'
+			res.send(order.finishOrder('Obrigado, seu pedido será preparado para retirada'))
+			break;
+
+		// case('Status'):
+		// 	const id = req.body.queryResult.parameters.number;
+		// 	order.getStatus(id);
 	}		
 })
 
