@@ -38,13 +38,12 @@ router.post('/',async (req,res)=>{
 			break;
 		
 		case('confirma-entrega'):
-			order.pedido.status = 'na fila'
+			order.pedido.status = 'Novo'
 			res.send(order.finishOrder('Obrigado, seu pedido será entregue'))
 			break;
 
 		case('confirma-retirada'):
-			order.pedido.status = 'na fila'
-			order.pedido.status = 'para retirada'
+			order.pedido.status = 'Novo'
 			res.send(order.finishOrder('Obrigado, seu pedido será preparado para retirada'))
 			break;
 
