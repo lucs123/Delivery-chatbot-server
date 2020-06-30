@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const order = require('../Bot.js')
+const Order = require('../Bot.js')
 const slugify = require('../slugify.js')
 
 router.post('/',async (req,res)=>{
-	// console.log(req.body.queryResult.parameters['sabor-pizza']);
+	console.log(req.body);
 	switch(req.body.queryResult.intent.displayName){
 		case('Pedido'):
 			const sabores_ = req.body.queryResult.parameters.sabor
@@ -13,8 +13,7 @@ router.post('/',async (req,res)=>{
 			const sabores = sabores_.map(sabor=>(
 			slugify(sabor)))
 			
-			order.sabores = sabores
-			order.quantidade = quantidade
+			order = new Order(sabores,quantidade)
 			res.send(order.orderResponse())
 			break;
 
@@ -23,7 +22,6 @@ router.post('/',async (req,res)=>{
 			break;
 
 		case('entrega'):
-			console.log(req.body.queryResult.queryText)
 			order.formaEntrega('entrega',req.body.queryResult.queryText)
 			res.send(order.textResponse(
 				'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+

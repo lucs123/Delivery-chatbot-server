@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const http = require('http').createServer(app);
-global.io = require('socket.io')(http);
+// const io = require('socket.io')(http);
+const io = exports.io = require('socket.io')(http);
 const PORT = process.env.PORT || 5000
 const slugify = require('./slugify.js')
 const cors = require('cors')
@@ -24,5 +25,4 @@ app.use('/chat',chat)
 http.listen(PORT, () => {
   console.log('live');
 });
-
 

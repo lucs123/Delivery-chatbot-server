@@ -1,5 +1,6 @@
 const menu = require('./pizzas.json') 
 const pool = require('./db.js')
+const io = require('./index.js').io;
 
 //sabores disponiveis
 available = []
@@ -8,9 +9,9 @@ for(let prop in menu){
 }
 
 class Order {
-    constructor(){
-        this.sabores;
-        this.quantidade;
+    constructor(sabores,quantidade){
+        this.sabores = sabores;
+        this.quantidade = quantidade;
         this.valores = [];
         this.pedido = {
                     id: null,
@@ -130,19 +131,18 @@ class Order {
     finishOrder= (message)=>{
         //remove last space and comma
         this.pedido.pedido = this.pedido.pedido.slice(0, -2)
-        console.log(this.pedido.pedido)
         let params = []
         for(let prop in this.pedido){
             params.push(this.pedido[prop])
         }
-        console.log(params);
-        pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',params, 
-            (err, res) => {
-            if (err) {
-                throw err
-                }
-        }
-        )
+        // pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',params, 
+        //     (err, res) => {
+        //     if (err) {
+        //         throw err
+        //         }
+        // }
+        // )
+        console.log(this.pedido)
         if(g_socket){g_socket.emit('FromAPI',this.pedido)}
         return (this.textResponse(message+' para consultar o status do seu pedido use o numero:'+this.pedido.id))
     }
@@ -186,6 +186,5 @@ const getSocket = (socket) => {
     g_socket = socket
 }
 
-let order = new Order
 
-module.exports = order
+module.exports = Order
