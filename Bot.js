@@ -128,6 +128,8 @@ class Order {
     })}
 
     finishOrder= (message)=>{
+        //remove last comma
+        this.pedido.pedido = this.pedido.pedido.slice(0, -1); 
         let params = []
         for(let prop in this.pedido){
             params.push(this.pedido[prop])
