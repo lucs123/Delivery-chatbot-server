@@ -31,7 +31,7 @@ router.post('/',async (req,res)=>{
 			break;
 
 		case('retirada'):
-			order.formaEntrega('retirada','')
+			order.formaEntrega('retirada','Para retirada')
 			res.send(order.textResponse(
 				'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
 				' para retirada?'))

@@ -128,8 +128,9 @@ class Order {
     })}
 
     finishOrder= (message)=>{
-        //remove last comma
-        this.pedido.pedido = this.pedido.pedido.slice(0, -1); 
+        //remove last space and comma
+        this.pedido.pedido = this.pedido.pedido.slice(0, -2)
+        console.log(this.pedido.pedido)
         let params = []
         for(let prop in this.pedido){
             params.push(this.pedido[prop])
@@ -142,7 +143,7 @@ class Order {
                 }
         }
         )
-        g_socket.emit('FromAPI',this.pedido)
+        if(g_socket){g_socket.emit('FromAPI',this.pedido)}
         return (this.textResponse(message+' para consultar o status do seu pedido use o numero:'+this.pedido.id))
     }
 
