@@ -1,10 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const Order = require('../Bot.js')
+const order = require('../Bot.js')
 const slugify = require('../slugify.js')
 
+
 router.post('/',async (req,res)=>{
-	console.log(req.body);
+	// metodo para encontrar o contexto variavei pedido
+	let context;
+	// console.log(req.body.queryResult.outputContexts);
+	req.body.queryResult.outputContexts.map(cont=>{
+		if(cont.name.split('/')[cont.name.split('/').length - 1] === 'variaveis-pedido'){
+			context = cont
+		}
+	})
+
+	let contVariables = context.parameters
+	// console.log(context)
 	switch(req.body.queryResult.intent.displayName){
 		case('Pedido'):
 			const sabores_ = req.body.queryResult.parameters.sabor
@@ -13,36 +24,30 @@ router.post('/',async (req,res)=>{
 			const sabores = sabores_.map(sabor=>(
 			slugify(sabor)))
 			
-			order = new Order(sabores,quantidade)
-			res.send(order.orderResponse())
+			res.send(order.orderResponse(sabores,quantidade))
 			break;
 
 		case('formaEntrega'):
-			res.send(order.billingResponse());
+			let valores = contVariables.valores;
+			res.send(order.billingResponse(valores));
 			break;
 
 		case('entrega'):
-			order.formaEntrega('entrega',req.body.queryResult.queryText)
-			res.send(order.textResponse(
-				'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
-				' para entrega em '+order.pedido.endereco+'?'))
+			res.send(order.formaEntrega('entrega',req.body.queryResult.queryText, contVariables))
 			break;
 
 		case('retirada'):
-			order.formaEntrega('retirada','Para retirada')
-			res.send(order.textResponse(
-				'Deseja confirmar seu pedido de '+order.pedido.pedido+' no valor de '+order.pedido.valor+
-				' para retirada?'))
+			res.send(order.formaEntrega('retirada','Para retirada', contVariables))
 			break;
 		
 		case('confirma-entrega'):
-			order.pedido.status = 'Novo'
-			res.send(order.finishOrder('Obrigado, seu pedido será entregue'))
+			let deliverMessage = await order.finishOrder('Obrigado, seu pedido será entregue', contVariables)
+			res.send(deliverMessage)
 			break;
 
 		case('confirma-retirada'):
-			order.pedido.status = 'Novo'
-			res.send(order.finishOrder('Obrigado, seu pedido será preparado para retirada'))
+			let retrieveMessage = await order.finishOrder('Obrigado, seu pedido será preparado para retirada', contVariables)
+			res.send(retrieveMessage)
 			break;
 
 		case('Status'):
