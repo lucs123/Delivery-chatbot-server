@@ -9,20 +9,7 @@ for(let prop in menu){
 }
 
 class Order {
-    // constructor(sabores,quantidade){
-    //     this.sabores = sabores;
-    //     this.quantidade = quantidade;
-    //     this.valores = [];
-    //     this.pedido = {
-    //                 id: null,
-    //                 pedido: '',
-    //                 valor: null,
-    //                 formaentrega:'',
-    //                 endereco:'',
-    //                 status: '' 
-    //                 };
-    // }
-
+    
     getInfo = (sabor) => {
         const pizza = menu[sabor]
         console.log(pizza)
@@ -177,13 +164,13 @@ class Order {
         for(let prop in novoPedido){
             params.push(novoPedido[prop])
         }
-        // pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',params, 
-        //     (err, res) => {
-        //     if (err) {
-        //         throw err
-        //         }
-        // }
-        // )
+        pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',params, 
+            (err, res) => {
+            if (err) {
+                throw err
+                }
+        }
+        )
         console.log(novoPedido)
         if(g_socket){g_socket.emit('FromAPI',novoPedido)}
         return (this.textResponse(message+' para consultar o status do seu pedido use o numero:'+id))
