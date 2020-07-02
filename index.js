@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const path = require('path')
 const http = require('http').createServer(app);
 // const io = require('socket.io')(http);
 const io = exports.io = require('socket.io')(http);
@@ -12,11 +13,12 @@ const bot = require('./Bot.js')
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/',(req,res)=>{
-	res.send('Hello')
-	console.log('live');
-})
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 app.use('/pedidos',pedidos)
 app.use('/chat',chat)
