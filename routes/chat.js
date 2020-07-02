@@ -7,15 +7,17 @@ const slugify = require('../slugify.js')
 router.post('/',async (req,res)=>{
 	// metodo para encontrar o contexto variavei pedido
 	let context;
-	// console.log(req.body.queryResult.outputContexts);
+	// console.log(req.body);
 	req.body.queryResult.outputContexts.map(cont=>{
 		if(cont.name.split('/')[cont.name.split('/').length - 1] === 'variaveis-pedido'){
 			context = cont
 		}
 	})
-
-	let contVariables = context.parameters
+	if(context){
+		let contVariables = context.parameters
+	}
 	// console.log(context)
+	
 	switch(req.body.queryResult.intent.displayName){
 		case('Pedido'):
 			const sabores_ = req.body.queryResult.parameters.sabor

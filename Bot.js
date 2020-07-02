@@ -16,7 +16,7 @@ class Order {
         return(this.textResponse('Pizza:'+pizza.Pizza+'; Ingredientes:'+pizza.Ingredientes+'; Preço:'+pizza.Preço))
     }
 
-    getAllOptions = async ()=>{
+    getAllOptions = ()=>{
         let pizzas = [];
         for(let prop in menu){
             pizzas = pizzas + menu[prop].Pizza+'; '
