@@ -69,7 +69,7 @@ class Order {
                 const sabor2 = menu[sabor_[sabor_.length - 1]] 
                 let valor = Math.max(sabor1.Valor,sabor2.Valor)
                 valores.push(valor)
-                let pedido = pedido.concat(quantidade[index].toString()
+                pedido = pedido.concat(quantidade[index].toString()
                     +' pizza '+sabor1.Pizza+' e '+sabor2.Pizza+', ')
                 console.log(pedido,valores)    
             }

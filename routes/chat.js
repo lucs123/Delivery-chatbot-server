@@ -2,11 +2,6 @@ const express = require('express');
 const router = express.Router();
 const order = require('../Bot.js')
 const slugify = require('../slugify.js')
-const basicAuth = require('express-basic-auth')
-
-router.use(basicAuth({
-    users: { 'admin': 'lkjgçajoiia' }
-}))
 
 function getContext(req) {
 	// metodo para encontrar o contexto variaveis pedido

@@ -7,7 +7,7 @@ router.get('/',(req,res)=>{
 	  	if (err) {
 	  	  throw err
 	  	}
-	  	console.log(results.rows);
+	  	// console.log(results.rows);
 	  	res.send(results.rows)
 		}
 	)
