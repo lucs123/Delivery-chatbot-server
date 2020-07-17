@@ -9,8 +9,9 @@ const cors = require('cors')
 const pedidos = require('./routes/pedidos.js')
 const chat = require('./routes/chat.js')
 const bot = require('./Bot.js')
+const login = require('./routes/login.js')
 
- 
+app.use(express.urlencoded({extended:true})) 
 app.use(express.json())
 
 app.use(cors())
@@ -26,6 +27,7 @@ app.get('/', function(req, res) {
 });
 
 
+app.use('/login',login)
 app.use('/pedidos',pedidos)
 app.use('/chat',chat)
 
