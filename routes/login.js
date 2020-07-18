@@ -12,22 +12,35 @@ router.post('/', async (req,res)=>{
 	const user = await rows[0]
 	
 	if(req.body.email !== user.email){
-		return res.status(400).send({error:'Email inválido'})
+		return res.status(400).send({auth:false, error:'Email inválido'})
 	}
 	
 	const validPass = await bcrypt.compare(req.body.password, user.password)
-	console.log(validPass)
 	
 	if(validPass){
 		const token = jwt.sign({id_: user.id}, 
 			process.env.TOKEN_SECRET)
-		return res.header('auth-token', token).send({token:token})
+		return res.send({auth:true, token:token})
 	}
 
 	else{		
-		return res.status(400).send({error:'Senha inválida'})
+		return res.status(400).send({auth:false, error:'Senha inválida'})
 	}	 
 })
 
+router.post('/auth', (req,res)=>{
+	let token = req.body.token
+
+	if (!token) 
+        return res.status(401).send({ auth: false, message: 'Token não informado.' }); 
+    
+    jwt.verify(token, process.env.TOKEN_SECRET, function(err, decoded) { 
+    if (err) {
+        return res.status(500).send({ auth: false, message: 'Token inválido.' }); 
+    }    
+
+    return res.send({auth:true, message: 'Token recebido'})
+	})
+})
 
 module.exports = router
