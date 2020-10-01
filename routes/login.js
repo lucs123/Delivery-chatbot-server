@@ -6,8 +6,6 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 router.post('/', async (req,res)=>{
-	console.log(req.body)
-	
 	const{rows} = await pool.query('SELECT * FROM users')
 	const user = await rows[0]
 	
