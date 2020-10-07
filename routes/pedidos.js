@@ -37,14 +37,17 @@ router.post('/', async (req, res)=>{
             novoPedido.formaentrega,
             novoPedido.endereco,
             novoPedido.status],
-             (err, response) => {
+             (err) => {
              if (err) {
                  throw err
+                 res.status(400).send({'message':`Bad request`})
                  }
-            res.status(201).send(novoPedido)
-         }
-         )
-    })
+                 else{
+                    res.set('Location', `pedidos/${id}`)     
+                    res.status(201).send(novoPedido)
+                }
+            })
+})
 
 router.put('/:id', async (req, res)=>{
         const pedidoAtualizado = req.body
@@ -61,10 +64,11 @@ router.put('/:id', async (req, res)=>{
             pedidoAtualizado.formaentrega,
             pedidoAtualizado.endereco,
             pedidoAtualizado.status],
-            (err, response) => {
+            (err) => {
                 if (err) {
                     throw err
                 }
+                res.send(pedidoAtualizado)
         })
 
 }) 
@@ -72,10 +76,11 @@ router.put('/:id', async (req, res)=>{
 router.delete('/:id', async (req, res)=>{
     pool.query('DELETE FROM pedidos\
         WHERE id = $1;',[req.params.id],
-        (err, res) => {
+        (err) => {
             if (err) {
                 throw err
             }
+            res.status(200).send()
         })
 });
 
