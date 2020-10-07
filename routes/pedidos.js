@@ -17,20 +17,25 @@ router.post('/', (req, res)=>{
         const {rows} = await pool.query('SELECT MAX(id) FROM pedidos;')
         const id = rows[0].max +1
 
-        const novoPedido = {
-            id: id,
-            pedido: req.pedido,
-            valor: req.valor,
-            formaentrega: req.formaentrega,
-            endereco: req.endereco,
-            status: req.status
-        };
+        // const novoPedido = {
+        //     req.pedido,
+        //     req.valor,
+        //     req.formaentrega,
+        //     req.endereco,
+        //     req.status
+        // };
 
-        let params = []
-        for(let prop in novoPedido){
-            params.push(novoPedido[prop])
-        }
-        pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',params, 
+        // let params = []
+        // for(let prop in novoPedido){
+        //     params.push(novoPedido[prop])
+        // }
+    pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',[
+            id,
+            req.pedido,
+            req.valor,
+            req.formaentrega,
+            req.endereco,
+            req.status], 
             (err, res) => {
             if (err) {
                 throw err
@@ -40,18 +45,20 @@ router.post('/', (req, res)=>{
     })
 
 router.put('/', (req, res)=>{
-        const pedido = {
-            id: id,
-            pedido: req.pedido,
-            valor: req.valor,
-            formaentrega: req.formaentrega,
-            endereco: req.endereco,
-            status: req.status
-        };
 
         pool.query('UPDATE pedidos\
-            SET status=$1\
-            WHERE id = $2',[data.status, req.params.id],
+            SET pedido=$2,\
+            valor=$3,\
+            formaentrega=$4,\
+            endereco=$5,\
+            status=$6,\
+            WHERE id = $1',
+            [req.params.id,
+            req.pedido,
+            req.valor,
+            req.formaentrega,
+            req.endereco,
+            req.status],
             (err, res) => {
                 if (err) {
                     throw err
