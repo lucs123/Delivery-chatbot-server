@@ -19,7 +19,10 @@
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
-    "pg": "^8.2.1",
+    "pg": "^8.4.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
+    "sequelize-auto": "^0.6.3",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
