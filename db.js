@@ -1,14 +1,18 @@
-const { Sequelize } = require('sequelize');
-
-const sequelize = new Sequelize('postgres://lucas:jpx@localhost:5432/delivery'); // Example for postgres
-
-const Pedido = sequelize.define('Pedido',{}, {tableName: 'pedidos'})
+require('dotenv').config()
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(process.env.CONNECTIONSTRING,{define:{timestamps:false}}); // Example for postgres
+const Pedido = require('./model/pedidos.js')(sequelize,DataTypes)
+// const Pedido = sequelize.define('Pedido',{}, {tableName: 'pedidos'})
 Pedido.sync();
-// console.log(Pedido)
 
 // (async ()=>{
-//     const pedidos = await Pedido.findAll()
-//     console.log(pedidos)
-//     // console.log(pedidos.every(pedido => pedido instanceof Pedido)); // true
-//     // console.log("All users:", JSON.stringify(pedidos, null, 2));
+//     try{
+//         const pedidos = await Pedido.findAll()
+//         // console.log(pedidos)
+//         // console.log(pedidos.every(pedido => pedido instanceof Pedido)); // true
+//         console.log("All users:", JSON.stringify(pedidos, null, 2));
+//     }
+//     catch(err){
+//         alert(err)
+//     }
 // })()
