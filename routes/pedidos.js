@@ -1,87 +1,88 @@
 const express = require('express');
 const router = express.Router();	
-const pool = require('../db.js')
+const Pedido = require('../db.js')
 
-router.get('/',(req,res)=>{
-	pool.query(('SELECT * FROM pedidos\
-        ORDER BY id'), (err, results) => {
-	  	if (err) {
-	  	  throw err
-	  	}
-	  	res.send(results.rows)
-		}
-	)
+router.get('/',async (req,res)=>{
+    try{
+        const pedidos = await Pedido.findAll({order:['id']})
+        const listaPedidos = (JSON.stringify(pedidos, null, 2));
+        res.send(listaPedidos)
+    }
+    catch(err){
+        alert(err)
+    }
 })	
 
-router.get('/:id',(req,res)=>{
-	pool.query(('SELECT FROM pedidos\
-        WHERE id=$1'), [req.params.id], (err, results) => {
-	  	if (err) {
-	  	  throw err
-	  	}
-	  	res.send(results.rows)
-		}
-	)
+router.get('/:id',async (req,res)=>{
+    try{
+        const pedido = await Pedido.findAll({where:{id:req.params.id}})
+        res.send((JSON.stringify(pedido, null, 2)));
+    }
+    catch(err){
+        alert(err)
+    }
 })	
 
 router.post('/', async (req, res)=>{
-        const {rows} = await pool.query('SELECT MAX(id) FROM pedidos;')
-        const id = rows[0].max +1
-    
+
+        const id = await Pedido.max('id') + 1
+        console.log(id)
         const novoPedido = req.body 
         novoPedido.id = id
-        pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',[
-             id,
-            novoPedido.pedido,
-            novoPedido.valor,
-            novoPedido.formaentrega,
-            novoPedido.endereco,
-            novoPedido.status],
-             (err) => {
-             if (err) {
-                 throw err
-                 res.status(400).send({'message':`Bad request`})
-                 }
-                 else{
-                    res.set('Location', `pedidos/${id}`)     
-                    res.status(201).send(novoPedido)
-                }
-            })
+        try{
+            const inserirPedido = await Pedido.create({
+                    id : id,
+                    pedido:novoPedido.pedido,
+                    valor:novoPedido.valor,
+                    formaentrega:novoPedido.formaentrega,
+                    endereco:novoPedido.endereco,
+                    status:novoPedido.status
+            })    
+                res.set('Location', `pedidos/${id}`)     
+                res.status(201).send(novoPedido)
+        }
+        catch(err){
+            throw err
+        }
+
 })
 
 router.put('/:id', async (req, res)=>{
         const pedidoAtualizado = req.body
-        pool.query('UPDATE pedidos\
-            SET pedido=$2,\
-            valor=$3,\
-            formaentrega=$4,\
-            endereco=$5,\
-            status=$6\
-            WHERE id = $1',
-            [req.params.id,
-            pedidoAtualizado.pedido,
-            pedidoAtualizado.valor,
-            pedidoAtualizado.formaentrega,
-            pedidoAtualizado.endereco,
-            pedidoAtualizado.status],
-            (err) => {
-                if (err) {
-                    throw err
-                }
-                res.send(pedidoAtualizado)
-        })
+
+    try{
+        await Pedido.update({
+            pedido:pedidoAtualizado.pedido,
+            valor:pedidoAtualizado.valor,
+            formaentrega:pedidoAtualizado.formaentrega,
+            endereco:pedidoAtualizado.endereco,
+            status:pedidoAtualizado.status }, {
+        where: {
+            id: req.params.id
+            }
+        });
+        res.send(pedidoAtualizado)
+    }
+    catch(err){
+        throw err
+    }
 
 }) 
 
 router.delete('/:id', async (req, res)=>{
-    pool.query('DELETE FROM pedidos\
-        WHERE id = $1;',[req.params.id],
-        (err) => {
-            if (err) {
-                throw err
-            }
-            res.status(200).send()
-        })
+
+    try{
+        await Pedido.destroy({
+        where: {
+            id: req.params.id
+        }
+        });
+        res.status(200).send()
+    }
+    catch(err){
+        throw(err)
+    }
+
 });
 
 
