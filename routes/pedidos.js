@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();	
-const Pedido = require('../db.js')
+const Pedido = require('../db.js');
+const {response} = require('express');
 
 router.get('/',async (req,res)=>{
     try{
@@ -50,8 +51,7 @@ router.post('/', async (req, res)=>{
 router.put('/:id', async (req, res)=>{
         const pedidoAtualizado = req.body
 
-    try{
-        await Pedido.update({
+         Pedido.update({
             pedido:pedidoAtualizado.pedido,
             valor:pedidoAtualizado.valor,
             formaentrega:pedidoAtualizado.formaentrega,
@@ -60,28 +60,30 @@ router.put('/:id', async (req, res)=>{
         where: {
             id: req.params.id
             }
-        });
-        res.send(pedidoAtualizado)
+            }).then(response=>{
+                console.log(response);
+                (response[0]===1)?
+                    res.status(200).send(pedidoAtualizado):
+                    res.status(404).send();
+            }).catch(err=>{
+                console.log(err)
+            })
     }
-    catch(err){
-        throw err
-    }
-
-}) 
+) 
 
 router.delete('/:id', async (req, res)=>{
-
-    try{
-        await Pedido.destroy({
+        Pedido.destroy({
         where: {
             id: req.params.id
         }
-        });
-        res.status(200).send()
-    }
-    catch(err){
-        throw(err)
-    }
+        }).then(response=>{
+            console.log(response);
+            (response===1)?
+                res.status(200).send():
+                res.status(404).send();
+        }).catch(err=>{
+            throw(err)
+    })
 
 });
 
