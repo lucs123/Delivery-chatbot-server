@@ -10,42 +10,41 @@ router.get('/',async (req,res)=>{
         res.send(listaPedidos)
     }
     catch(err){
-        alert(err)
+        if(err.name==='SequelizeConnectionRefusedError'){
+            res.status(500).send()
+        }
     }
 })	
 
 router.get('/:id',async (req,res)=>{
-    try{
-        const pedido = await Pedido.findAll({where:{id:req.params.id}})
-        res.send((JSON.stringify(pedido, null, 2)));
-    }
-    catch(err){
-        alert(err)
-    }
+        Pedido.findAll({where:{id:req.params.id}})
+        .then(response=>{
+            (response[0])?
+                res.send((JSON.stringify(response, null, 2))):
+                res.status(404).send();
+        }).catch(err=>{
+            throw(err)
+        })
 })	
 
 router.post('/', async (req, res)=>{
 
         const id = await Pedido.max('id') + 1
-        console.log(id)
         const novoPedido = req.body 
         novoPedido.id = id
-        try{
-            const inserirPedido = await Pedido.create({
+        Pedido.create({
                     id : id,
                     pedido:novoPedido.pedido,
                     valor:novoPedido.valor,
                     formaentrega:novoPedido.formaentrega,
                     endereco:novoPedido.endereco,
                     status:novoPedido.status
-            })    
+        }).then(response=>{    
                 res.set('Location', `pedidos/${id}`)     
                 res.status(201).send(novoPedido)
-        }
-        catch(err){
-            throw err
-        }
-
+        }).catch(err=>{
+                res.code(400).send(err)
+        })
 })
 
 router.put('/:id', async (req, res)=>{
@@ -61,12 +60,11 @@ router.put('/:id', async (req, res)=>{
             id: req.params.id
             }
             }).then(response=>{
-                console.log(response);
                 (response[0]===1)?
                     res.status(200).send(pedidoAtualizado):
                     res.status(404).send();
             }).catch(err=>{
-                console.log(err)
+                res.code(400).send(err)
             })
     }
 ) 
@@ -77,7 +75,6 @@ router.delete('/:id', async (req, res)=>{
             id: req.params.id
         }
         }).then(response=>{
-            console.log(response);
             (response===1)?
                 res.status(200).send():
                 res.status(404).send();
