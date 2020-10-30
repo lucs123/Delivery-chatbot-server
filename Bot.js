@@ -1,4 +1,4 @@
-const menu = require('./pizzas.json') 
+const menu = require('./data/pizzas.json') 
 const pool = require('./db.js')
 const io = require('./index.js').io;
 

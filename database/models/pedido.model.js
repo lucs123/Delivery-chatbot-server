@@ -1,7 +1,8 @@
 /* jshint indent: 2 */
+const {DataTypes} = require('sequelize');
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('pedidos', {
+module.exports = (sequelize) => {
+    sequelize.define('pedidos', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -33,4 +34,4 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'pedidos',
     schema: 'public'
     });
-};
+}

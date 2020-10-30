@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();	
-const Pedido = require('../db.js');
+// const Pedido = require('../db.js');
+const Pedido = require('../model/pedido.js');
 const {response} = require('express');
 
+console.log(Pedido)
 router.get('/',async (req,res)=>{
     try{
         const pedidos = await Pedido.findAll({order:['id']})
