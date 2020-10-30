@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config()
-const pool = require('../db.js')
+const pool = require('../database')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 

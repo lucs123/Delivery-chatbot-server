@@ -1,5 +1,5 @@
 const menu = require('./data/pizzas.json') 
-const pool = require('./db.js')
+const pool = require('./database')
 const io = require('./index.js').io;
 
 //sabores disponiveis

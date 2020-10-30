@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();	
-// const Pedido = require('../db.js');
-const Pedido = require('../model/pedido.js');
+const {pedido} = require('../database');
 const {response} = require('express');
 
-console.log(Pedido)
 router.get('/',async (req,res)=>{
     try{
-        const pedidos = await Pedido.findAll({order:['id']})
+        const pedidos = await pedido.findAll({order:['id']})
         const listaPedidos = (JSON.stringify(pedidos, null, 2));
         res.send(listaPedidos)
     }
@@ -19,7 +17,7 @@ router.get('/',async (req,res)=>{
 })	
 
 router.get('/:id',async (req,res)=>{
-        Pedido.findAll({where:{id:req.params.id}})
+        pedido.findAll({where:{id:req.params.id}})
         .then(response=>{
             (response[0])?
                 res.send((JSON.stringify(response, null, 2))):
@@ -31,19 +29,19 @@ router.get('/:id',async (req,res)=>{
 
 router.post('/', async (req, res)=>{
 
-        const id = await Pedido.max('id') + 1
+        const id = await pedido.max('id') + 1
         const novoPedido = req.body 
         novoPedido.id = id
-        Pedido.create({
+        pedido.create({
                     id : id,
-                    pedido:novoPedido.pedido,
-                    valor:novoPedido.valor,
-                    formaentrega:novoPedido.formaentrega,
-                    endereco:novoPedido.endereco,
-                    status:novoPedido.status
+                    pedido:novopedido.pedido,
+                    valor:novopedido.valor,
+                    formaentrega:novopedido.formaentrega,
+                    endereco:novopedido.endereco,
+                    status:novopedido.status
         }).then(response=>{    
                 res.set('Location', `pedidos/${id}`)     
-                res.status(201).send(novoPedido)
+                res.status(201).send(novopedido)
         }).catch(err=>{
                 res.code(400).send(err)
         })
@@ -52,7 +50,7 @@ router.post('/', async (req, res)=>{
 router.put('/:id', async (req, res)=>{
         const pedidoAtualizado = req.body
 
-         Pedido.update({
+         pedido.update({
             pedido:pedidoAtualizado.pedido,
             valor:pedidoAtualizado.valor,
             formaentrega:pedidoAtualizado.formaentrega,
@@ -72,7 +70,7 @@ router.put('/:id', async (req, res)=>{
 ) 
 
 router.delete('/:id', async (req, res)=>{
-        Pedido.destroy({
+        pedido.destroy({
         where: {
             id: req.params.id
         }
