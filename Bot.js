@@ -1,6 +1,6 @@
-const menu = require('./data/pizzas.json') 
 const pool = require('./database')
 const io = require('./index.js').io;
+const pizzas = require('../services/pizzas')
 
 //sabores disponiveis
 available = []
@@ -9,44 +9,17 @@ for(let prop in menu){
 }
 
 class Order {
-    
     getInfo = (sabor) => {
-        const pizza = menu[sabor]
-        console.log(pizza)
+        const pizza = pizzas.getInfo(sabor)
         return(this.textResponse('Pizza:'+pizza.Pizza+'; Ingredientes:'+pizza.Ingredientes+'; Preço:'+pizza.Preço))
     }
 
     getAllOptions = ()=>{
-        let pizzas = [];
-        for(let prop in menu){
-            pizzas = pizzas + menu[prop].Pizza+'; '
-        }
+        const pizzas = pizzas.getAllOptions()
         return(this.textResponse(pizzas)) 
     }
 
     getStatus = async (id) =>{
-        try{
-            const {rows} = await pool.query('SELECT status FROM pedidos\
-                WHERE id=$1;',[id])
-            const status_ = await rows[0].status
-
-            switch(status_){
-                case('Novo'):
-                return(this.textResponse('Seu pedido está na fila de espera'));              
-
-                case('Fazendo'):
-                return(this.textResponse('Seu pedido está na sendo preparado'));              
-
-                case('Para entrega'):
-                return(this.textResponse('Seu pedido já será entregue'));              
-
-                case('Aguardando retirada'):
-                return(this.textResponse('Seu pedido já está aguardando a retirada'));              
-            }
-        }
-        catch(err){
-            return(this.textResponse('Desculpe, seu pedido não foi encontrado.'));              
-        }
 
     }
 

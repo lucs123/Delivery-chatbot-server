@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const order = require('../Bot.js')
-const slugify = require('../slugify.js')
+const slugify = require('../services/slugify')
 
 function getContext(req) {
 	// metodo para encontrar o contexto variaveis pedido
