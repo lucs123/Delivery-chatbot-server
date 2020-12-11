@@ -1,4 +1,5 @@
-const menu = require('./data/pizzas.json') 
+const menu = require('../data/pizzas.json') 
+const {pedido} = require('../database')
 
 exports.getInfo = (sabor) => {
         const pizza = menu[sabor]
@@ -15,25 +16,51 @@ exports.getAllOptions = () =>{
 
 exports.getStatus = id => {
         try{
-            const {rows} = await pool.query('SELECT status FROM pedidos\
-                WHERE id=$1;',[id])
-            const status_ = await rows[0].status
-
-            switch(status_){
-                case('Novo'):
-                return(this.textResponse('Seu pedido está na fila de espera'));              
-
-                case('Fazendo'):
-                return(this.textResponse('Seu pedido está na sendo preparado'));              
-
-                case('Para entrega'):
-                return(this.textResponse('Seu pedido já será entregue'));              
-
-                case('Aguardando retirada'):
-                return(this.textResponse('Seu pedido já está aguardando a retirada'));              
-            }
+            pedido.findAll({where:{id:id}})
+            .then(response=>{
+                const pedido_ = JSON.stringify(response[0], null, 2)
+                const status = response[0].dataValues.status
+                return status
+            })
         }
         catch(err){
-            return(this.textResponse('Desculpe, seu pedido não foi encontrado.'));              
+            console.log(err)
+            return 'Não encontrado';              
         }
 } 
+
+exports.changeStatus = async data => {
+         pedido.update({
+            status:data.status }, {
+        where: {
+            id: data.id
+            }
+        }
+        )
+}
+
+exports.create = async novoPedido => {
+        const id = await pedido.max('id') + 1
+        novoPedido.id = id
+
+        pedido.create({
+                    id : id,
+                    pedido:novoPedido.pedido,
+                    valor:novoPedido.valor,
+                    formaentrega:novoPedido.formaentrega,
+                    endereco:novoPedido.endereco,
+                    status:novoPedido.status
+        }).then(response=>{    
+               return novoPedido 
+        }).catch(err=>{
+               return err 
+        })
+}
+
+exports.delete = async id => {
+        pedido.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+}

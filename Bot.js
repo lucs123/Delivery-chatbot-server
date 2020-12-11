@@ -1,6 +1,7 @@
 const pool = require('./database')
+const menu = require('./data/pizzas.json') 
 const io = require('./index.js').io;
-const pizzas = require('../services/pizzas')
+const pizzas = require('./services/pizzas')
 
 //sabores disponiveis
 available = []
@@ -20,20 +21,29 @@ class Order {
     }
 
     getStatus = async (id) =>{
+            const status = pizzas.getStatus(id)
 
-    }
+            switch(status){
+                case('Novo'):
+                return(this.textResponse('Seu pedido está na fila de espera'));              
+                case('Fazendo'):
+                return(this.textResponse('Seu pedido está na sendo preparado'));              
 
-    generateId = async () =>{
-        const {rows} = await pool.query('SELECT MAX(id) FROM pedidos;')
-        return rows[0].max +1
+                case('Para entrega'):
+                return(this.textResponse('Seu pedido já será entregue'));              
+
+                case('Aguardando retirada'):
+                return(this.textResponse('Seu pedido já está aguardando a retirada'));              
+                case('Não encontrado'):
+                return(this.textResponse('Desculpe, seu pedido não foi encontrado.'));              
+            }
     }
 
     orderResponse = (sabores,quantidade) => {
-        //generate id
-        this.generateId()
         let pedido = '';
         let valores =[];
         let res = "O seu pedido foi: "
+        console.log(sabores)
         sabores.map((sabor,index)=>{
             //Para dois sabores
             if((sabor.includes(' e ') || sabor.includes(' com ')) && (!available.includes(sabor))){
@@ -123,29 +133,17 @@ class Order {
     finishOrder= async (message, context)=>{
         //remove last space and comma
         const pedido = context.pedido.slice(0, -2)
-        const id = await this.generateId()
 
         const novoPedido = {
-            id: id,
             pedido: pedido,
             valor: context.valor,
             formaentrega: context.formaentrega,
             endereco: context.endereco,
             status: 'Novo' 
         };
-        let params = []
-        for(let prop in novoPedido){
-            params.push(novoPedido[prop])
-        }
-        pool.query('INSERT INTO pedidos(id,pedido,valor,formaentrega,endereco,status) VALUES($1,$2,$3,$4,$5,$6)',params, 
-            (err, res) => {
-            if (err) {
-                throw err
-                }
-        }
-        )
-        console.log(novoPedido)
-        if(g_socket){g_socket.emit('FromAPI',novoPedido)}
+
+        const pedidoCriado = pizzas.create(novoPedido)
+        if(g_socket){g_socket.emit('FromAPI',pedidoCriado)}
         return (this.textResponse(message+' para consultar o status do seu pedido use o numero:'+id))
     }
 
@@ -155,32 +153,22 @@ let g_socket;
 
 io.on("connection", (socket) => {
   console.log("New client connected");
+
   getSocket(socket)
+
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
+
   socket.on('changeStatus', (data)=>{
-    // console.log(data)
-    pool.query('UPDATE pedidos\
-        SET status=$1\
-        WHERE id = $2',[data.status,data.id],
-        (err, res) => {
-            if (err) {
-                throw err
-            }
-        })
+      pizzas.changeStatus(data)
     }
     )
+
   socket.on('remove', (data)=>{
-    console.log(data)
-    pool.query('DELETE FROM pedidos\
-        WHERE id = $1;',[data.id],
-        (err, res) => {
-            if (err) {
-                throw err
-            }
-        })
+      pizzas.delete(data.id)
     })
+
 });
 
 
