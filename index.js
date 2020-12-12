@@ -9,6 +9,7 @@ const pedidos = require('./routes/pedidos.js')
 const chat = require('./routes/chat.js')
 const login = require('./routes/login.js')
 require('./database')
+require('./services/socket')
 
 app.use(express.urlencoded({extended:true})) 
 app.use(express.json())
