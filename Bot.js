@@ -1,12 +1,7 @@
 const menu = require('./data/pizzas.json') 
 const io = require('./index.js').io;
 const pizzas = require('./services/pizzas')
-
-// //sabores disponiveis
-// available = []
-// for(let prop in menu){
-//     available.push(prop)
-// }
+const pedidos = require('./services/pedidos');
 
 class Order {
     getInfo = (sabor) => {
@@ -15,12 +10,12 @@ class Order {
     }
 
     getAllOptions = ()=>{
-        const pizzas = pizzas.getAllOptions()
-        return(this.textResponse(pizzas)) 
+        const listaPizzas = pizzas.getAllOptions()
+        return(this.textResponse(listaPizzas)) 
     }
 
     getStatus = async (id) =>{
-            const status = await pizzas.getStatus(id)
+            const status = await pedidos.getStatus(id)
 
             switch(status){
                 case('Novo'):
@@ -144,11 +139,13 @@ class Order {
             status: 'Novo' 
         };
 
-        const pedidoCriado = await pizzas.create(novoPedido)
-        // if(g_socket){g_socket.emit('FromAPI',pedidoCriado)}
-        io.sockets.emit('FromAPI',pedidoCriado)
-        return (this.textResponse(message +' para consultar o status do seu pedido use o numero:'+ pedidoCriado.id
-    ))
+        return pedidos.create(novoPedido)
+            .then(response=>{
+                const pedidoCriado = response.dataValues
+                const id = response.dataValues.id
+                io.sockets.emit('FromAPI',pedidoCriado)
+                return (this.textResponse(message +' para consultar o status do seu pedido use o numero:'+ id))
+            })
     }
 }
 

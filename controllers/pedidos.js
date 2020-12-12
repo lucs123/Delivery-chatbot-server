@@ -1,5 +1,4 @@
-const {pedido} = require('../database');
-const pedidos = require('../services/pizzas');
+const pedidos = require('../services/pedidos');
 
 exports.getAll = async (req,res)=> {
     pedidos.getAll() 

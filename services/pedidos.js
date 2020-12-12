@@ -1,19 +1,4 @@
-const menu = require('../data/pizzas.json') 
 const {pedido} = require('../database')
-
-exports.getInfo = (sabor) => {
-        const pizza = menu[sabor]
-        return pizza
-}
-
-exports.getAllOptions = () =>{
-        let pizzas = [];
-        for(let prop in menu){
-            pizzas = pizzas + menu[prop].Pizza+'; '
-        }
-        console.log(pizzas)
-        return pizzas
-}
 
 exports.getAll = async () => {
         return pedido.findAll({order:['id']})
@@ -26,7 +11,6 @@ exports.getPedido = async id => {
 exports.getStatus = async id => {
             return pedido.findAll({where:{id:id}})
             .then(response=>{
-                const pedido_ = JSON.stringify(response[0], null, 2)
                 const status = response[0].dataValues.status
                 console.log(status)
                 return status
