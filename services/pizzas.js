@@ -14,6 +14,14 @@ exports.getAllOptions = () =>{
         return pizzas
 }
 
+exports.getAll = async () => {
+        return pedido.findAll({order:['id']})
+}
+
+exports.getPedido = async id => {
+        return pedido.findAll({where:{id:id}})
+}
+
 exports.getStatus = async id => {
             return pedido.findAll({where:{id:id}})
             .then(response=>{
@@ -27,11 +35,11 @@ exports.getStatus = async id => {
         })
 } 
 
-exports.changeStatus = async data => {
-         pedido.update({
-            status:data.status }, {
+exports.changeStatus = async (status, id) => {
+        return pedido.update({
+            status:status }, {
         where: {
-            id: data.id
+            id: id
             }
         }
         )
@@ -48,17 +56,26 @@ exports.create = async novoPedido => {
                     formaentrega:novoPedido.formaentrega,
                     endereco:novoPedido.endereco,
                     status:novoPedido.status
-        }).then(response=>{    
-               return novoPedido 
-        }).catch(err=>{
-               return err 
+        })
+}
+
+exports.update = (pedidoAtualizado, id) => {
+        return pedido.update({
+            pedido:pedidoAtualizado.pedido,
+            valor:pedidoAtualizado.valor,
+            formaentrega:pedidoAtualizado.formaentrega,
+            endereco:pedidoAtualizado.endereco,
+            status:pedidoAtualizado.status }, {
+        where: {
+            id: id
+            }
         })
 }
 
 exports.delete = async id => {
-        pedido.destroy({
+        return pedido.destroy({
         where: {
-            id: req.params.id
+            id: id
         }
     })
 }

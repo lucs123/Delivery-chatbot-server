@@ -1,20 +1,22 @@
 const {pedido} = require('../database');
+const pedidos = require('../services/pizzas');
 
 exports.getAll = async (req,res)=> {
-    try{
-        const pedidos = await pedido.findAll({order:['id']})
-        const listaPedidos = (JSON.stringify(pedidos, null, 2));
+    pedidos.getAll() 
+    .then(response=>{
+        const listaPedidos = JSON.stringify(response, null, 2)
         res.send(listaPedidos)
-    }
-    catch(err){
+    })
+    .catch(err=>{
         if(err.name==='SequelizeConnectionRefusedError'){
-            res.status(500).send()
+            res.status(500).send()    
         }
-    }
+    })
 }
 
+
 exports.get = async (req,res)=> {
-        pedido.findAll({where:{id:req.params.id}})
+       pedidos.getPedido(req.params.id) 
         .then(response=>{
             (response[0])?
                 res.send((JSON.stringify(response, null, 2))):
@@ -25,36 +27,22 @@ exports.get = async (req,res)=> {
     }
 
 exports.create = async (req,res)=> {
-        const id = await pedido.max('id') + 1
         const novoPedido = req.body 
-        novoPedido.id = id
-        pedido.create({
-                    id : id,
-                    pedido:novoPedido.pedido,
-                    valor:novoPedido.valor,
-                    formaentrega:novoPedido.formaentrega,
-                    endereco:novoPedido.endereco,
-                    status:novoPedido.status
-        }).then(response=>{    
-                res.set('Location', `pedidos/${id}`)     
-                res.status(201).send(novoPedido)
+
+        pedidos.create(novoPedido)
+        .then(response=>{    
+                const pedidoCriado = JSON.stringify(response, null, 2)
+                res.set('Location', `pedidos/${pedidoCriado.id}`)     
+                res.status(201).send(pedidoCriado)
         }).catch(err=>{
                 res.status(400).send(err)
         })
     }
 
 exports.update = async (req,res)=> {
-        const pedidoAtualizado = req.body
-         pedido.update({
-            pedido:pedidoAtualizado.pedido,
-            valor:pedidoAtualizado.valor,
-            formaentrega:pedidoAtualizado.formaentrega,
-            endereco:pedidoAtualizado.endereco,
-            status:pedidoAtualizado.status }, {
-        where: {
-            id: req.params.id
-            }
-            }).then(response=>{
+            const pedidoAtualizado = req.body
+            pedidos.update(pedidoAtualizado, req.params.id)
+            .then(response=>{
                 (response[0]===1)?
                     res.status(200).send(pedidoAtualizado):
                     res.status(404).send();
@@ -64,11 +52,8 @@ exports.update = async (req,res)=> {
     }
 
 exports.delete = async (req,res)=> {
-        pedido.destroy({
-        where: {
-            id: req.params.id
-        }
-        }).then(response=>{
+        pedidos.delete(req.params.id)
+        .then(response=>{
             (response===1)?
                 res.status(200).send():
                 res.status(404).send();
