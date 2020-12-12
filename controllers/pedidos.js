@@ -39,7 +39,7 @@ exports.create = async (req,res)=> {
                 res.set('Location', `pedidos/${id}`)     
                 res.status(201).send(novoPedido)
         }).catch(err=>{
-                res.code(400).send(err)
+                res.status(400).send(err)
         })
     }
 

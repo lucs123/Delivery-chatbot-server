@@ -15,19 +15,19 @@ module.exports = function(sequelize) {
     },
     valor: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     formaentrega: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     endereco: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     }
   }, {
     sequelize,

@@ -14,19 +14,17 @@ exports.getAllOptions = () =>{
         return pizzas
 }
 
-exports.getStatus = id => {
-        try{
-            pedido.findAll({where:{id:id}})
+exports.getStatus = async id => {
+            return pedido.findAll({where:{id:id}})
             .then(response=>{
                 const pedido_ = JSON.stringify(response[0], null, 2)
                 const status = response[0].dataValues.status
+                console.log(status)
                 return status
-            })
-        }
-        catch(err){
+                }).catch(err =>{
             console.log(err)
-            return 'Não encontrado';              
-        }
+            return 'Não encontrado';
+        })
 } 
 
 exports.changeStatus = async data => {
@@ -43,7 +41,7 @@ exports.create = async novoPedido => {
         const id = await pedido.max('id') + 1
         novoPedido.id = id
 
-        pedido.create({
+        return pedido.create({
                     id : id,
                     pedido:novoPedido.pedido,
                     valor:novoPedido.valor,

@@ -1,13 +1,12 @@
-const pool = require('./database')
 const menu = require('./data/pizzas.json') 
 const io = require('./index.js').io;
 const pizzas = require('./services/pizzas')
 
-//sabores disponiveis
-available = []
-for(let prop in menu){
-    available.push(prop)
-}
+// //sabores disponiveis
+// available = []
+// for(let prop in menu){
+//     available.push(prop)
+// }
 
 class Order {
     getInfo = (sabor) => {
@@ -21,11 +20,12 @@ class Order {
     }
 
     getStatus = async (id) =>{
-            const status = pizzas.getStatus(id)
+            const status = await pizzas.getStatus(id)
 
             switch(status){
                 case('Novo'):
                 return(this.textResponse('Seu pedido está na fila de espera'));              
+
                 case('Fazendo'):
                 return(this.textResponse('Seu pedido está na sendo preparado'));              
 
@@ -34,6 +34,7 @@ class Order {
 
                 case('Aguardando retirada'):
                 return(this.textResponse('Seu pedido já está aguardando a retirada'));              
+
                 case('Não encontrado'):
                 return(this.textResponse('Desculpe, seu pedido não foi encontrado.'));              
             }
@@ -42,8 +43,9 @@ class Order {
     orderResponse = (sabores,quantidade) => {
         let pedido = '';
         let valores =[];
+        const available = pizzas.getAllOptions()
         let res = "O seu pedido foi: "
-        console.log(sabores)
+
         sabores.map((sabor,index)=>{
             //Para dois sabores
             if((sabor.includes(' e ') || sabor.includes(' com ')) && (!available.includes(sabor))){
@@ -142,39 +144,40 @@ class Order {
             status: 'Novo' 
         };
 
-        const pedidoCriado = pizzas.create(novoPedido)
-        if(g_socket){g_socket.emit('FromAPI',pedidoCriado)}
-        return (this.textResponse(message+' para consultar o status do seu pedido use o numero:'+id))
+        const pedidoCriado = await pizzas.create(novoPedido)
+        // if(g_socket){g_socket.emit('FromAPI',pedidoCriado)}
+        io.sockets.emit('FromAPI',pedidoCriado)
+        return (this.textResponse(message +' para consultar o status do seu pedido use o numero:'+ pedidoCriado.id
+    ))
     }
-
 }
 
-let g_socket;
+// let g_socket;
 
-io.on("connection", (socket) => {
-  console.log("New client connected");
+// io.on("connection", (socket) => {
+//   console.log("New client connected");
+//
+//   getSocket(socket)
+//
+//   socket.on("disconnect", () => {
+//     console.log("Client disconnected");
+//   });
+//
+//   socket.on('changeStatus', (data)=>{
+//       pizzas.changeStatus(data)
+//     }
+//     )
+//
+//   socket.on('remove', (data)=>{
+//       pizzas.delete(data.id)
+//     })
+//
+// });
 
-  getSocket(socket)
 
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
-
-  socket.on('changeStatus', (data)=>{
-      pizzas.changeStatus(data)
-    }
-    )
-
-  socket.on('remove', (data)=>{
-      pizzas.delete(data.id)
-    })
-
-});
-
-
-const getSocket = (socket) => {
-    g_socket = socket
-}
+// const getSocket = (socket) => {
+//     g_socket = socket
+// }
 
 const order = new Order
 
