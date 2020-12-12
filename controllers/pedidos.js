@@ -1,4 +1,5 @@
 const pedidos = require('../services/pedidos');
+const io = require('../index.js').io;
 
 exports.getAll = async (req,res)=> {
     pedidos.getAll() 
@@ -30,9 +31,12 @@ exports.create = async (req,res)=> {
 
         pedidos.create(novoPedido)
         .then(response=>{    
-                const pedidoCriado = JSON.stringify(response, null, 2)
-                res.set('Location', `pedidos/${pedidoCriado.id}`)     
+                const pedidoCriado = response.dataValues
+                const id = response.dataValues.id
+                io.sockets.emit('FromAPI',pedidoCriado)
+                res.set('Location', `pedidos/${id}`)     
                 res.status(201).send(pedidoCriado)
+
         }).catch(err=>{
                 res.status(400).send(err)
         })
