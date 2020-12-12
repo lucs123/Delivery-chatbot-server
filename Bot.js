@@ -149,33 +149,6 @@ class Order {
     }
 }
 
-// let g_socket;
-
-// io.on("connection", (socket) => {
-//   console.log("New client connected");
-//
-//   getSocket(socket)
-//
-//   socket.on("disconnect", () => {
-//     console.log("Client disconnected");
-//   });
-//
-//   socket.on('changeStatus', (data)=>{
-//       pizzas.changeStatus(data)
-//     }
-//     )
-//
-//   socket.on('remove', (data)=>{
-//       pizzas.delete(data.id)
-//     })
-//
-// });
-
-
-// const getSocket = (socket) => {
-//     g_socket = socket
-// }
-
 const order = new Order
 
 module.exports = order
