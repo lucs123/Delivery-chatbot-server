@@ -17,6 +17,26 @@ npm install
 ```sh
 npm run dev
 ```
+## Api
+
+### Endpoints
+
+|   Endpoint   	| Metodo    	| Função 	|   	
+|:------------:	|--------	|--------------------------	|
+|   /pedidos   	| GET    	| Retorna todos os pedidos 	|   
+| /pedidos/:id 	| GET    	| Retorna pedido           	|   
+| /pedidos     	| POST   	| Adiciona pedido          	|   
+| /pedidos/:id 	| PUT    	| Atualiza pedido          	|  
+| /pedidos/:id 	| DELETE 	| Apaga pedido             	| 
+
+### Pedido
+|   Campo   	| Descrição    	|
+|:------------:	|--------	|
+|   pedido  	| Descrição do pedido    	| 
+| valor 	| Valor do pedido    	| 
+|  formaentrega    	| Forma de entrega   	|   
+| endereco 	|   Endereço de entrega  	|
+| status 	| Status do pedido 	| 
 
 ## Author
 
