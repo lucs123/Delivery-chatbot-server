@@ -1,5 +1,5 @@
 # Delivery chatbot-Server
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000)
 
 Este é o servidor do Projeto delivery chatbot
 
